@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="description" content="" />
+<meta name="author" content="" />
+
+<title>Offers</title>
+<link href="/css/bootstrap.min.css" th:href="@{css/bootstrap.min.css}"
+	rel="stylesheet" media="screen" />
+<link href="/css/bootstrap-theme.min.css"
+	th:href="@{css/bootstrap-theme.min.css}" rel="stylesheet"
+	media="screen" />
+<link href="/css/font-awesome.min.css"
+	th:href="@{css/font-awesome.min.css}" rel="stylesheet" media="screen" />
+<link href="/css/custom.css" th:href="@{css/custom.css}"
+	rel="stylesheet" media="screen" />
+<link href="/css/animate.min.css" th:href="@{css/animate.min.css}"
+	rel="stylesheet" media="screen" />
+
+</head>
+
+<body>
+	<div id="main" class="container-fluid">
+		<div class="left">
+			<a href="/welcome"><img src="/images/home.jpg"></img></a>
+		</div>
+		<!--  to go back to main screen -->
+		<p class="padding-top"></p>
+		<h3>Shopping Results/Offer/Shopping Cart</h3>
+		<hr></hr>
+		<p class="padding-bottom"></p>
+
+		<section id="main">
+			<div class="row">
+
+				<!--  section for showing the filters -->
+				<div class="col-sm-2">
+					<div class="row">
+					<div class="col-sm-12">
+							<img
+						src="/images/filter.png"></img>
+						</div>
+						<div class="col-sm-12">
+							<div class="well well-xs">
+								<label for="stop">Stops</label>
+							</div>
+							<ul class="slide">
+								<li th:each="stop : ${T(com.aa.ndchtml5.common.Stop).stopsList}">
+									<input type="checkbox"  class ="stops"
+									onclick="getDetailsOnFilterSelection()"
+									th:value="${stop.getCode()}" /> <label
+									th:for="${stop.getCode()}" th:text="${stop.getValue()}"></label>
+								</li>
+							</ul>
+						</div>
+						<div class="col-sm-12">
+							<div class="well well-xs">
+								<label for="airline">Airlines</label>
+							</div>
+							<ul class="slide">
+								<li
+									th:each="airline : ${T(com.aa.ndchtml5.common.Airline).airlineList}">
+									<input type="checkbox"  class ="airlines"
+									onclick="getDetailsOnFilterSelection()"
+									th:value="${airline.getCode()}" /> <label
+									th:for="${airline.getCode()}" th:text="${airline.getValue()}"></label>
+								</li>
+							</ul>
+						</div>
+						<div class="col-sm-12">
+							<div class="well well-xs">
+								<label for="feature">Features</label>
+							</div>
+							<ul class="slide">
+								<li
+									th:each="feature : ${T(com.aa.ndchtml5.common.Feature).featuresList}">
+									<input type="checkbox"  class ="features"
+									onclick="getDetailsOnFilterSelection()"
+									th:value="${feature.getCode()}" /> <label
+									th:for="${feature.getCode()}"> <img
+										class="filter-highlight" th:title="${feature.getCode()}"
+										th:src="${feature.getValue()}" th:alt="${feature.getCode()}"></img>
+								</label>
+								</li>
+							</ul>
+						</div>
+					</div>
+				</div>
+				<!--  end of filters section -->
+
+				<div id="offers-with-cart" th:fragment="offersWithCart">
+					<!--  section for showing the offers -->
+					<div id="filtered-offers-list">
+						<div class="col-sm-offset-1 col-sm-6"
+							th:fragment="filteredOffersList" th:object="${displayOffersList}">
+							<div class="row">
+								<div class="col-xs-12 col-sm-6"
+									th:each="offer : ${displayOffersList}">
+									<div class="offer-highlight">
+										<div class="panel offer-panel grabbable"
+											th:id="${offer.offerId}" draggable="true"
+											ondragstart="drag(event)">
+											<div class="panel-heading">
+												<div class="row">
+													<label class="col-xs-offset-2 col-xs-2">Offer </label> <label
+														class="col-xs-offset-1 col-xs-7"
+														th:text="${offer.offerId}"></label> <label
+														class=" col-xs-offset-2 col-xs-12"
+														th:text="${offer.offerExpiryDate}"> </label>
+												</div>
+											</div>
+											<div class="panel-body">
+												<label class="col-xs-12 underline"
+													th:text="${offer.flightDetails}"> </label>
+												<div class="padding-lines"></div>
+												<label class="col-xs-3">Fare:</label> <label
+													class="col-xs-9" th:text="${offer.fare}"> </label>
+												<div class="padding-lines"></div>
+												<div class="col-xs=12">
+													<label>Included</label>
+													<ul>
+														<li th:each="inclFeature : ${offer.includeFeatures}"
+															th:text="${inclFeature}"></li>
+													</ul>
+												</div>
+												<div class="padding-lines"></div>
+												<div class="col-xs=12">
+													<label>For Purchase</label>
+													<ul>
+														<li th:each="purFeature : ${offer.purchaseFeautues}"
+															th:text="${purFeature}"></li>
+													</ul>
+												</div>
+											</div>
+
+										</div>
+										<!--  End of offer panel -->
+									</div>
+								</div>
+							</div>
+						</div>
+						<!-- End of fragment filteredOffersList -->
+					</div>
+
+					<!-- section for showing the cart -->
+					<div class="col-sm-3">
+						<nav class="navbar navbar-fixed navbar-right" role="navigation">
+							<div class="collapse navbar-collapse"
+								id="bs-example-navbar-collapse-1">
+								<ul class="nav navbar-nav navbar-right">
+									<li>
+										<div id="purchase-cart" th:object="${shoppingCartOffersList}"
+											th:position="fixed" ondragover="dragover(event)"
+											ondrop="drop(event)">
+											<span id="cartimage"
+												class="glyphicon-shopping-cart glyphicon big-cart"></span>
+											<div th:if="${not #lists.isEmpty(shoppingCartOffersList)}">
+												<div class="dropdown text-center">
+													<div data-toggle="dropdown" class=" dropdown-toggle"
+														id="mini" aria-expanded="true">
+														<button type="button" id="viewcart" class="btn">
+															View Cart <span class="badge"> <label
+																th:text="${shoppingCartOffersList.size()}" /></span>
+														</button>
+													</div>
+													<div class="dropdown-menu dropdown-menu-left row">
+														<span class="top-arrow"></span>
+														<form id="view-cart-form" th:action="@{/payment}"
+															th:object="${shoppingCartOffersList}">
+															<div class="col-xs-12 text-center">
+																<div class="scrollable">
+																	<table class="table">
+																		<th:block
+																			th:each="purchasedItem : ${shoppingCartOffersList}">
+																			<tr>
+																				<td><a th:text="${purchasedItem.offerId}"
+																					role="button" data-toggle="collapse"
+																					aria-expanded="false"
+																					th:href="'#' + ${purchasedItem.offerId}"> </a>
+																					<div class="collapse"
+																						th:id="${purchasedItem.offerId}">
+																						<div class="well">
+																							<label th:text="${purchasedItem.flightDetails}"> </label>
+																							<label>Fare:</label> <label
+																								th:text="${purchasedItem.fare}">
+																							</label>
+																						</div>
+																					</div></td>
+																				<td><button type="button"
+																						th:onclick="'javascript:removeFromCart(\'' + ${purchasedItem.offerId} + '\');'">
+																						<i class="fa fa-minus-circle" aria-hidden="true"></i>
+																					</button></td>
+																			</tr>
+																		</th:block>
+																	</table>
+																</div>
+																<button type="submit" class="btn">Submit</button>
+															</div>
+														</form>
+													</div>
+												</div>
+											</div>
+										</div>
+
+									</li>
+								</ul>
+							</div>
+						</nav>
+						<!-- end of showing cart -->
+					</div>
+
+				</div>
+				<!-- End of fragment offersWithCart -->
+
+				<div class="back-to-top right">
+					<a id="backtotop" href="#main"><i
+						class="fa fa-chevron-circle-up big-arrow"></i></a>
+				</div>
+				<!-- Back to Top -->
+
+			</div>
+			<!-- End of main row -->
+		</section>
+	</div>
+
+	<script src="/js/jquery.1.10.2.min.js"
+		th:src="@{/js/jquery.1.10.2.min.js}"></script>
+	<script src="/js/bootstrap.min.js" th:src="@{/js/bootstrap.min.js}"></script>
+	<script src="/js/custom.js" th:src="@{/js/custom.js}"></script>
+
+</body>
+</html>

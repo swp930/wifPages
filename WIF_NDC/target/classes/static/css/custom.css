@@ -1,0 +1,179 @@
+/*!
+ * Custom CSS styles
+ * Buttons/wells - orange BG with white text
+ * panels - panel heading orange BG with white text and body gray BG with white text
+ * Labels - black text
+ */
+body {
+	background-image: url("/images/white-background-8.jpg");
+}
+
+.nav-pills>li.active>a, .nav-pills>li.active>a:focus, .nav-pills>li.active>a:hover
+	{
+	background: #FCAC45;
+	color: #ffffff;
+}
+
+.nav>li>a:focus, .nav>li>a:hover {
+	background-color: #666;
+	color: #fff;
+}
+
+a {
+	color: #000;
+	text-decoration: none;
+}
+
+a:hover {
+	color: #FCAC45;
+	text-decoration: none;
+}
+
+a:focus {
+	text-decoration: none;
+}
+
+.btn {
+	background: #FCAC45;
+	color: #ffffff;
+}
+
+.panel-heading {
+	background: #FCAC45;
+	color: #ffffff;
+	border-radius: 10px;
+}
+
+.well {
+	background: #FCAC45;
+	color: #ffffff;
+}
+
+.dropdown-menu-left {
+    width: 250px;
+}
+
+.padding-top {
+	padding: 30px
+}
+
+.padding-lines {
+	padding: 0.5px;
+}
+
+.right {
+	right: 0;
+}
+
+left {
+	left: 0;
+}
+
+.well-xs {
+	padding: 0.5px;
+	border-radius: 0.25px
+}
+
+ul.slide li:hover {
+	padding-left: 5px;
+}
+
+.nobullet {
+	list-style-type: none;
+}
+
+.underline {
+	text-decoration: underline
+}
+
+.carousel-size {
+	width: 100%;
+	height: 270px;
+}
+
+.big-cart {
+	font-size: 250px;
+}
+
+.big-arrow {
+	font-size: 40px;
+}
+
+.grabbable {
+	cursor: move;
+	cursor: grab;
+	cursor: -moz-grab;
+	cursor: -webkit-grab;
+}
+
+.grabbable:active {
+	cursor: grabbing;
+	cursor: -moz-grabbing;
+	cursor: -webkit-grabbing;
+}
+
+.offer-highlight {
+	opacity: 0.95;
+	-webkit-transition: all 0.2s ease-in-out;
+	-moz-transition: all 0.2s ease-in-out;
+	-o-transition: all 0.2s ease-in-out;
+	-ms-transition: all 0.2s ease-in-out;
+	transition: all 0.2s ease-in-out;
+}
+
+.offer-highlight:hover {
+	opacity: 1;
+	-webkit-transform: scale(1.1, 1.1);
+	-moz-transform: scale(1.1, 1.1);
+	-o-transform: scale(1.1, 1.1);
+	-ms-transform: scale(1.1, 1.1);
+	transform: scale(1.1, 1.1);
+}
+
+.filter-highlight {
+	background: transparent;
+	border: 0;
+}
+
+.filter-highlight:hover {
+	border: 2px solid #FCAC45;
+}
+
+.back-to-top {
+	bottom: 12px; position : fixed;
+	visibility: hidden;
+	opacity: 0;
+	position: fixed;
+}
+
+.back-to-top.back-to-top-visible {
+	visibility: visible;
+	opacity: 1;
+}
+.navbar-fixed {
+	position:fixed;
+	right:0;
+	padding-right: 30px;
+}
+.top-arrow {
+	width: 22px;
+    height: 12px;
+    background-position: -275px 0;
+    position: absolute;
+    top: -12px;
+    right: 75px;
+ 	background-image: url("/images/header-sprite.png");
+    background-repeat: no-repeat;
+    display: inline-block;
+    background-size: 485px;
+}
+.offer-panel {
+	height: 375px;
+	background: #666;
+	color: #ffffff;
+	border-radius: 10px;
+}
+.scrollable{
+	max-height: 170px;
+	overflow-y: auto;
+}
